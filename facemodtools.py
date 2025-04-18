@@ -329,13 +329,15 @@ def reorder_func():
     print(len(origfolders))
     for root, dirs, files in os.walk(modfolder):
         for name in files:
+            # check for key and buf
             if fnmatch.fnmatch(name, "orig.buf"):
-                origfolders.append(root)
+                if os.path.isfile(root + "/key.buf") and os.path.isfile(root + "/base.buf"):
+                    origfolders.append(root)
 
     print(origfolders)
 
     if len(origfolders) == 0:
-        printlog("Found no orig.buf. Aborting.")
+        printlog("Found no base.buf/key.buf/orig.buf pair. Aborting.")
         return
 
     for folder in origfolders:
