@@ -1,8 +1,5 @@
 # Anime Game Face Modding Tools
-Hai
-
-I made a simple program that automates the steps currently used in face modding.  
-I didn't want to touch the blender plugins, so there are still some manual steps, but I think it should make everything easier.  
+Simple GUI to automate the current steps for face modding
 ## Usage
 Bolded means you just press the button in the tool.
 1. Obtain face dump
