@@ -1,10 +1,10 @@
 # Anime Game Face Modding Tools
-Simple GUI to automate the current steps for face modding
+Simple GUI to automate the current steps for face modding in GI
 ## Usage
 Bolded means you just press the button in the tool.
 1. Obtain face dump
-2. Open Genshin Face Modding Tools and **select dump and mod folder**
-3. **Get orig.buf**
+2. Open G. Face Modding Tools and **select dump and mod folder**
+3. (**Get orig.buf**) Not always needed
 4. **Clean face dump**
 5. **Generate .ini and .hlsl**
 6. Import to blender via `Import > 3DMigoto frame analysis dump (vb.txt + ib.txt)`
@@ -14,7 +14,7 @@ immediately without touching it, name the file `base`
 10. Export `Export > 3DMigoto raw buffers (.vb + .ib)` 
  your finished work, name the file `key`
 11. **Clean blender export**
-12. **Reorder points**
+12. (**Reorder points**) Not always needed
 
 Done!
 ## Features
@@ -49,6 +49,7 @@ Deleted COLOR and TEXCOORD attributes from every vb0 file in dump folder!
 
 ### Generate .ini and .hlsl
 Will create a mod folder structure. It copies the basic .hlsl that every face mod uses and generates an ini with your hash and dispatch.  
+If your dump contains a diffuse texture, it will use that to ensure your mod doesn't appear on other characters.  
 If you have multiple parts, it will create one subfolder for each part.  
 Use this before exporting from blender.
 ```

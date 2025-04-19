@@ -326,18 +326,31 @@ def reorder_func():
         return
 
     origfolders = []
+    unfixedfolder = 0
     print(len(origfolders))
     for root, dirs, files in os.walk(modfolder):
         for name in files:
             # check for key and buf
             if fnmatch.fnmatch(name, "orig.buf"):
                 if os.path.isfile(root + "/key.buf") and os.path.isfile(root + "/base.buf"):
-                    origfolders.append(root)
+                    # check if the folder is "UNFIXED"!!!
+                    rootcopy = root
+                    if "unfixed" in rootcopy.replace(modfolder, ""):
+                        unfixedfolder += 1
+                    else:
+                        origfolders.append(root)
 
     print(origfolders)
 
     if len(origfolders) == 0:
-        printlog("Found no base.buf/key.buf/orig.buf pair. Aborting.")
+        if unfixedfolder:
+            # reorder.text = "Reorder points (REPLACE)"
+            if unfixedfolder > 1:
+                printlog("Found " + str(unfixedfolder) + " unfixed folders. Move orig.buf out of them to run this function again.")
+            else:
+                printlog("Found an unfixed folder. Move orig.buf out of it to run this function again.")
+        else:
+            printlog("Found no base.buf/key.buf/orig.buf pair. Aborting.")
         return
 
     for folder in origfolders:
@@ -345,30 +358,37 @@ def reorder_func():
         os.chdir(folder)
 
         if os.path.exists(folder + "/unfixed"):
-            printlog("Found unfixed folder, skipping")
-            os.chdir(olddir)
-        else:
-            os.makedirs("unfixed")
-            shutil.copy2("base.buf", "unfixed/base.buf")
-            shutil.copy2("key.buf", "unfixed/key.buf")
-            shutil.copy2("orig.buf", "unfixed/orig.buf")
-        
-            os.makedirs("fixed")
-            fixface.fixthis("orig.buf", "base.buf", "base.buf", folder)
-            fixface.fixthis("orig.buf", "base.buf", "key.buf", folder)
+            # heh i checked for this at the wrong location
+            os.remove("unfixed/base.buf")
+            os.remove("unfixed/key.buf")
+            os.rmdir("unfixed")
+            # printlog("Found unfixed folder, skipping")
+            # os.chdir(olddir)
+        os.makedirs("unfixed")
+        shutil.copy2("base.buf", "unfixed/base.buf")
+        shutil.copy2("key.buf", "unfixed/key.buf")
+        shutil.copy2("orig.buf", "unfixed/orig.buf")
+    
+        os.makedirs("fixed")
+        fixface.fixthis("orig.buf", "base.buf", "base.buf", folder)
+        fixface.fixthis("orig.buf", "base.buf", "key.buf", folder)
 
-            # hehe
-            os.remove("orig.buf")
-            os.remove("base.buf")
-            os.remove("key.buf")
+        # hehe
+        os.remove("orig.buf")
+        os.remove("base.buf")
+        os.remove("key.buf")
 
-            shutil.copy2("fixed/base.buf", "base.buf")
-            shutil.copy2("fixed/key.buf", "key.buf")
+        shutil.copy2("fixed/base.buf", "base.buf")
+        shutil.copy2("fixed/key.buf", "key.buf")
 
-            shutil.rmtree("fixed")
+        shutil.rmtree("fixed")
 
-            printlog("Fixed files in " + folder.replace(modfolder, ""))
-            os.chdir(olddir)
+        foldername = folder.replace(modfolder, "")
+        if foldername == "":
+            foldername = "mod folder"
+
+        printlog("Fixed files in " + foldername)
+        os.chdir(olddir)
 
 reorder = customtkinter.CTkButton(master=app, text="Reorder points", height=50, command=reorder_func)
 reorder.place(relx=0.3, rely=0.6, anchor=customtkinter.W)
