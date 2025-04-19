@@ -1,7 +1,7 @@
 # Anime Game Face Modding Tools
 Simple GUI to automate the current steps for face modding in GI  
 ![screenshot of the tool](_internal/funny/screenshot.png)  
-[Full face modding tutorial by RainEndings](https://gamebanana.com/tuts/18672)
+[Full face modding tutorial by RainEndings](https://gamebanana.com/tuts/18672)  
 [Dumping tutorial](dumptutorial.md)  
 [Quick video of creating a face mod, start to finish](https://www.youtube.com/watch?v=5CCtvyKprGU)  
 ## Usage
