@@ -1,5 +1,9 @@
 # Anime Game Face Modding Tools
-Simple GUI to automate the current steps for face modding in GI
+Simple GUI to automate the current steps for face modding in GI  
+[screenshot of the tool](_internal/funny/screenshot.png)  
+[Full face modding tutorial by RainEndings](https://gamebanana.com/tuts/18672)
+[Dumping tutorial](dumptutorial.md)  
+[Quick video of creating a face mod, start to finish](https://www.youtube.com/watch?v=5CCtvyKprGU)  
 ## Usage
 Bolded means you just press the button in the tool.
 1. Obtain face dump
@@ -17,6 +21,9 @@ immediately without touching it, name the file `base`
 12. (**Reorder points**) Not always needed
 
 Done!
+## Running the tool
+Head over to [releases](https://github.com/gdsfdg/facemodtools/releases) and download the first zip. Unzip the whole folder somewhere and double-click the exe.  
+Alternatively, download the source code and run facemodtools.py. You'll have to install customtkinter and pillow via `pip install customtkinter`.
 ## Features
 ### Folder selection
 After selecting these two folders, the tool will use them for all of its functions.
