@@ -21,6 +21,7 @@ awesomeicon = app.iconbitmap('_internal/funny/magolor.ico')
 # log
 logbox = customtkinter.CTkTextbox(master=app, width=240, height=180, wrap="word")
 logbox.place(relx=0.55, rely=0.61, anchor=customtkinter.W)
+logbox.configure(state="disabled")
 
 # file selection dialog
 def filebutton0():
@@ -48,8 +49,6 @@ def printlog(message):
     logbox.insert(END, message + "\n")
     logbox.configure(state="disabled")
     
-printlog("First beta, things might not work :3")
-
 # buttons
 def origbuf_func():
     dumpfolder = entry0.get()
@@ -267,7 +266,7 @@ def ini_func():
         file.writelines(ini)
         file.close()
 
-    printlog("Generated mod folder files!")
+    printlog("Generated mod folder files.")
     if len(parts) > 1:
         printlog("Please save your \"base.buf\" and \"key.buf\" into the generated subfolders.")
 
@@ -398,6 +397,8 @@ image_label = customtkinter.CTkLabel(app, image=image, text="")
 # image_label.place(relx=0.3, rely=0.8, anchor=customtkinter.W)
 image_label.place(relx=0.44, rely=0.8, anchor=customtkinter.W)
 
-# NEED MARX IMAGE !!!!!!!!!!!!!!!!!!!!!
+image2 = customtkinter.CTkImage(light_image=Image.open("_internal/funny/marx.png"), size=(58, 60))
+image_label2 = customtkinter.CTkLabel(app, image=image2, text="")
+image_label2.place(relx=0.33, rely=0.8, anchor=customtkinter.W)
 
 app.mainloop()
