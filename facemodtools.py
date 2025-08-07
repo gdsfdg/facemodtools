@@ -110,7 +110,6 @@ def origbuf_func():
             printlog("Couldn't find " + finalname)
 
     # printlog("Done!")
-    # printlog("Yeah I will improve the window to select your frameanalysis folder")
 
 origbuf = customtkinter.CTkButton(master=app, text="Get orig.buf", height=50, command=origbuf_func)
 origbuf.place(relx=0.05, rely=0.4, anchor=customtkinter.W)
@@ -150,14 +149,30 @@ def cleandump_func():
         lines[0] = "stride: 40\n"
 
         # very stinky
-        started = False
+        # started = False
+        # for i, line in enumerate(lines):
+        #     if "element[3]:" in lines[i]:
+        #         started = True
+        #     if lines[i] == "\n":
+        #         break
+        #     if started:
+        #         lines[i] = "DELETETHIS\n"
+
         for i, line in enumerate(lines):
-            if "element[3]:" in lines[i]:
-                started = True
+            if "element[" in lines[i]:
+                if "SemanticName: COLOR" in lines[i+1] or "SemanticName: TEXCOORD" in lines[i+1]:
+                    
+                    # delete this element
+                    print("deleting " + lines[i] + "because it contains " + lines[i+1])
+                    counter = 0
+                    while counter <= 7:
+                        lines[i+counter] = "DELETETHIS\n"
+                        counter+=1
+                started = i
             if lines[i] == "\n":
                 break
-            if started:
-                lines[i] = "DELETETHIS\n"
+            # if started:
+            #     lines[i] = "DELETETHIS\n"
 
         filtered_lines = [line for line in lines if 'COLOR' not in line and 'TEXCOORD' not in line and 'DELETETHIS' not in line]
 
